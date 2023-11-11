@@ -36,21 +36,25 @@ mkdir -p "$TMP_DIR"
 
 # Download the website with specified depth, excluding images
 echo "Starting download..."
-# Log wget output for troubleshooting
-WGET_LOG_FILE="${TMP_DIR}/wget.log"
-if ! wget --recursive --level="$DEPTH" --html-extension --convert-links --no-parent --reject=jpg,jpeg,png,gif --continue --directory-prefix="$TMP_DIR" "$URL" > "$WGET_LOG_FILE" 2>&1; then
-    echo "Warning: There were issues downloading some parts of the website. Check $WGET_LOG_FILE for details."
+if ! wget --recursive --level="$DEPTH" --html-extension --convert-links --no-parent --reject=jpg,jpeg,png,gif --continue --directory-prefix="$TMP_DIR" "$URL"; then
+    echo "Error: Failed to download the website. Check the URL and network connection."
+    exit 1
 else
     echo "Download completed successfully."
 fi
 
+echo "Processing downloaded files..."
 mkdir -p "$OUTPUT_DIR"
 find "$TMP_DIR" -type f -name "*.html" | while read -r file; do
-    # Remove HTML tags and decode HTML entities
-    sed -e 's/<[^>]*>//g' "$file" | html2text >> "$FINAL_OUTPUT_FILE"
+    echo "Processing file: $file"
+    # Convert HTML to text (assuming html2text is used)
+    html2text "$file" >> "$FINAL_OUTPUT_FILE"
 done
+
+echo "Content has been saved into $FINAL_OUTPUT_FILE"
 rm -rf "$TMP_DIR"
 echo "Operation done."
-exit 1
+
+exit 0
 
 
