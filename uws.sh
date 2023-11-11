@@ -21,11 +21,9 @@ URL="$1"
 TMP_DIR="/dev/shm/website_data"
 OUTPUT_DIR="final_output"
 FINAL_OUTPUT_FILE="${OUTPUT_DIR}/final_text_output.txt"
-# Extract root domain from URL and sanitize it for use in filenames
 ROOT_DOMAIN=$(echo "$URL" | awk -F/ '{print $3}' | sed 's/[.\/]/_/g')
-
-# Optional depth parameter for scraping
 DEPTH=${2:-"inf"}  # Set to "inf" (infinite) if not specified
+FILE_SIZE=${3:-"10M"}  # Default to 10M if not specified
 
 # Check write permission for /dev/shm and output directory
 if ! [ -w "/dev/shm" ] || ( [ ! -d "$OUTPUT_DIR" ] && ! mkdir -p "$OUTPUT_DIR" ) || ! [ -w "$OUTPUT_DIR" ]; then
