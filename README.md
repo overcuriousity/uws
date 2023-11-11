@@ -5,21 +5,23 @@ This script is designed to download web pages from a specified URL and convert t
 ## Features
 
 - Downloads entire website or specific pages up to a defined depth.
-- Converts HTML content to plain text.
+- Converts HTML content to plain text using `html2text`.
 - Excludes image files (jpg, jpeg, png, gif) during the download process.
 - By default, consolidates all text content into a single file.
+- Optional: Splits the output into multiple files based on a specified file size limit.
 
 ## Prerequisites
 
 Before you run this script, ensure you have the following installed:
-- wget: For downloading web pages.
-- lynx: For converting HTML to plain text.
+- `wget`: For downloading web pages.
+- `html2text`: For converting HTML to plain text.
+
 
 For Manjaro/Arch-based systems, install them using:
-sudo pacman -S wget lynx html2text
+sudo pacman -S wget html2text
 
 For Debian-based systems (like Ubuntu), use:
-sudo apt-get install wget lynx html2text
+sudo apt-get install wget html2text
 
 ## Usage
 
