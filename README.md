@@ -26,11 +26,11 @@ sudo apt-get install wget lynx
 
 1. Clone the repository or download the script.
 2. Make the script executable:
-   chmod +x web_scraper_to_text_split.sh
+   chmod +x uws.sh
 3. Run the script with the desired URL and optional file size parameter:
-   ./web_scraper_to_text_split.sh <URL> [FILE_SIZE]
+   ./uws.sh <URL> [FILE_SIZE]
    Example:
-   ./web_scraper_to_text_split.sh http://example.com -10M
+   ./uws.sh http://example.com -10M
 
 # Disclaimer
 
