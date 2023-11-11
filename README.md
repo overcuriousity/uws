@@ -9,6 +9,7 @@ This script is designed to download web pages from a specified URL and convert t
 - Excludes image files (jpg, jpeg, png, gif) during the download process.
 - By default, consolidates all text content into a single file.
 - Optional: Splits the output into multiple files based on a specified file size limit.
+- removes html-specific items
 
 ## Prerequisites
 
