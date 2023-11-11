@@ -27,9 +27,9 @@ sudo apt-get install wget lynx html2text
 2. Make the script executable:
    chmod +x uws.sh
 3. Run the script with the desired URL and optional file size parameter:
-   ./uws.sh <URL> [FILE_SIZE] [DEPTH]
+   ./uws.sh <URL> [DEPTH] [FILE_SIZE]
    Example:
-   ./uws.sh http://example.com -10M 1
+   ./uws.sh http://example.com 1 10M
 
 ## Disclaimer
 
