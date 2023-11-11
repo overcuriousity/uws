@@ -9,7 +9,7 @@ This script is designed to download web pages from a specified URL and convert t
 - Excludes image files (jpg, jpeg, png, gif) during the download process.
 - By default, consolidates all text content into a single file.
 
-# Prerequisites
+## Prerequisites
 
 Before you run this script, ensure you have the following installed:
 - wget: For downloading web pages.
@@ -21,7 +21,7 @@ sudo pacman -S wget lynx
 For Debian-based systems (like Ubuntu), use:
 sudo apt-get install wget lynx
 
-# Usage
+## Usage
 
 1. Clone the repository or download the script.
 2. Make the script executable:
@@ -31,15 +31,15 @@ sudo apt-get install wget lynx
    Example:
    ./uws.sh http://example.com -10M 1
 
-# Disclaimer
+## Disclaimer
 
 This script is for educational and research purposes only. Ensure you have the right to download and process the content from the specified URL. Respect robots.txt files and website terms of service. The author is not responsible for any misuse of this tool or any violations of data use policies.
 
-# Contributing
+## Contributing
 
 Contributions, issues, and feature requests are welcome. Feel free to check issues page if you want to contribute.
 
-# License
+## License
 
 Distributed under the GNU License. See LICENSE for more information.
 
