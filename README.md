@@ -1,14 +1,13 @@
-# uws
-Uncomplicated Website Scraper
+# Uncomplicated Website Scraper (uws)
 
-This script is designed to download web pages from a specified URL, convert them to plain text, and then split the text into multiple files of a specified size. It's particularly useful for creating a text-based dataset from a website for various purposes like data analysis, machine learning, or personal archiving.
+This script is designed to download web pages from a specified URL and convert them to plain text. It's particularly useful for creating a text-based dataset from a website for various purposes like data analysis, machine learning, or personal archiving.
 
-# Features
+## Features
 
-- Downloads entire website or specific pages.
-- Converts HTML content to plain text using lynx.
-- Splits the text content into files of specified size.
-- Stores temporary data in RAM for efficiency.
+- Downloads entire website or specific pages up to a defined depth.
+- Converts HTML content to plain text.
+- Excludes image files (jpg, jpeg, png, gif) during the download process.
+- By default, consolidates all text content into a single file.
 
 # Prerequisites
 
@@ -28,9 +27,9 @@ sudo apt-get install wget lynx
 2. Make the script executable:
    chmod +x uws.sh
 3. Run the script with the desired URL and optional file size parameter:
-   ./uws.sh <URL> [FILE_SIZE]
+   ./uws.sh <URL> [FILE_SIZE] [DEPTH]
    Example:
-   ./uws.sh http://example.com -10M
+   ./uws.sh http://example.com -10M 1
 
 # Disclaimer
 
@@ -38,7 +37,7 @@ This script is for educational and research purposes only. Ensure you have the r
 
 # Contributing
 
-Contributions, issues, and feature requests are welcome. Feel free to check issues page (your-issue-link-here) if you want to contribute.
+Contributions, issues, and feature requests are welcome. Feel free to check issues page if you want to contribute.
 
 # License
 
