@@ -45,8 +45,10 @@ else
 fi
 
 mkdir -p "$OUTPUT_DIR"
-find "$TMP_DIR" -type f -name "*.html" -exec cat {} + > "$FINAL_OUTPUT_FILE"
-echo "Content has been saved into $FINAL_OUTPUT_FILE"
+find "$TMP_DIR" -type f -name "*.html" | while read -r file; do
+    # Remove HTML tags and decode HTML entities
+    sed -e 's/<[^>]*>//g' "$file" | html2text >> "$FINAL_OUTPUT_FILE"
+done
 rm -rf "$TMP_DIR"
 echo "Operation done."
 exit 1
