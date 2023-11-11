@@ -16,10 +16,10 @@ Before you run this script, ensure you have the following installed:
 - lynx: For converting HTML to plain text.
 
 For Manjaro/Arch-based systems, install them using:
-sudo pacman -S wget lynx
+sudo pacman -S wget lynx html2text
 
 For Debian-based systems (like Ubuntu), use:
-sudo apt-get install wget lynx
+sudo apt-get install wget lynx html2text
 
 ## Usage
 
