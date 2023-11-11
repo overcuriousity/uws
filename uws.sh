@@ -21,6 +21,8 @@ URL="$1"
 TMP_DIR="/dev/shm/website_data"
 OUTPUT_DIR="final_output"
 FINAL_OUTPUT_FILE="${OUTPUT_DIR}/final_text_output.txt"
+# Extract root domain from URL and sanitize it for use in filenames
+ROOT_DOMAIN=$(echo "$URL" | awk -F/ '{print $3}' | sed 's/[.\/]/_/g')
 
 # Optional depth parameter for scraping
 DEPTH=${2:-"inf"}  # Set to "inf" (infinite) if not specified
@@ -45,14 +47,19 @@ fi
 
 echo "Processing downloaded files..."
 mkdir -p "$OUTPUT_DIR"
+FINAL_INTERMEDIATE_FILE="/dev/shm/final_intermediate.txt"
+
+# Concatenate all text into one intermediate file
 find "$TMP_DIR" -type f -name "*.html" | while read -r file; do
     echo "Processing file: $file"
-    # Convert HTML to text (assuming html2text is used)
-    html2text "$file" >> "$FINAL_OUTPUT_FILE"
+    html2text "$file" >> "$FINAL_INTERMEDIATE_FILE"
 done
 
-echo "Content has been saved into $FINAL_OUTPUT_FILE"
-rm -rf "$TMP_DIR"
+# Split the final output into multiple files using the root domain in the file name
+split -b "$FILE_SIZE" -d -a 4 "$FINAL_INTERMEDIATE_FILE" "${OUTPUT_DIR}/${ROOT_DOMAIN}_"
+
+echo "Content has been split and saved into $OUTPUT_DIR"
+rm -rf "$TMP_DIR" "$FINAL_INTERMEDIATE_FILE"
 echo "Operation done."
 
 exit 0
