@@ -36,9 +36,12 @@ mkdir -p "$TMP_DIR"
 
 # Download the website with specified depth, excluding images
 echo "Starting download..."
-if ! wget --recursive --level="$DEPTH" --html-extension --convert-links --no-parent --reject=jpg,jpeg,png,gif --directory-prefix="$TMP_DIR" "$URL"; then
-    echo "Error: Failed to download the website. Check the URL and network connection."
-    exit 1
+# Log wget output for troubleshooting
+WGET_LOG_FILE="${TMP_DIR}/wget.log"
+if ! wget --recursive --level="$DEPTH" --html-extension --convert-links --no-parent --reject=jpg,jpeg,png,gif --continue --directory-prefix="$TMP_DIR" "$URL" > "$WGET_LOG_FILE" 2>&1; then
+    echo "Warning: There were issues downloading some parts of the website. Check $WGET_LOG_FILE for details."
+else
+    echo "Download completed successfully."
 fi
 
 mkdir -p "$OUTPUT_DIR"
