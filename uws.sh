@@ -35,33 +35,17 @@ fi
 mkdir -p "$TMP_DIR"
 
 # Download the website with specified depth, excluding images
-if ! wget --recursive --level="$DEPTH" --html-extension --convert-links --no-parent --reject=jpg,jpeg,png,gif --directory-prefix="$TMP_DIR" --spider "$URL"; then
-    echo "Error: Failed to estimate the size of the website. Check the URL and network connection."
+echo "Starting download..."
+if ! wget --recursive --level="$DEPTH" --html-extension --convert-links --no-parent --reject=jpg,jpeg,png,gif --directory-prefix="$TMP_DIR" "$URL"; then
+    echo "Error: Failed to download the website. Check the URL and network connection."
     exit 1
 fi
 
-# Estimate the size of the downloaded content
-echo "Estimating the size of downloaded content..."
-SIZE=$(du -sh "$TMP_DIR" | cut -f1)
-echo "Estimated size of the content is $SIZE."
+mkdir -p "$OUTPUT_DIR"
+find "$TMP_DIR" -type f -name "*.html" -exec cat {} + > "$FINAL_OUTPUT_FILE"
+echo "Content has been saved into $FINAL_OUTPUT_FILE"
+rm -rf "$TMP_DIR"
+echo "Operation done."
+exit 1
 
-# Ask user to continue or abort
-read -p "Do you want to continue and save the content? (Y/n, press Enter for Yes) " choice
-case "$choice" in
-  Y|y|"")
-    echo "Continuing with download..."
-    if ! wget --recursive --level="$DEPTH" --html-extension --convert-links --no-parent --reject=jpg,jpeg,png,gif --directory-prefix="$TMP_DIR" "$URL"; then
-        echo "Error: Failed to download the website. Check the URL and network connection."
-        exit 1
-    fi
-    mkdir -p "$OUTPUT_DIR"
-    find "$TMP_DIR" -type f -name "*.html" -exec cat {} + > "$FINAL_OUTPUT_FILE"
-    echo "Content has been saved into $FINAL_OUTPUT_FILE"
-    rm -rf "$TMP_DIR"
-    ;;
-  *)
-    echo "Operation aborted."
-    rm -rf "$TMP_DIR"
-    exit 1
-    ;;
-esac
+
