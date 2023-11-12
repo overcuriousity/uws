@@ -36,7 +36,7 @@ mkdir -p "$TMP_DIR"
 
 # Download the website with specified depth, excluding images
 echo "Starting download..."
-wget --recursive --level="$DEPTH" --html-extension --convert-links --no-parent --reject=jpg,jpeg,png,gif --continue --directory-prefix="$TMP_DIR" "$URL"
+wget --recursive --level="$DEPTH" --html-extension --convert-links --no-parent --reject=jpg,jpeg,png,gif,svg --continue --directory-prefix="$TMP_DIR" "$URL"
 WGET_EXIT_STATUS=$?
 
 if [ $WGET_EXIT_STATUS -ne 0 ]; then
