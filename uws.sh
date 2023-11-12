@@ -53,8 +53,10 @@ find "$TMP_DIR" -type f -name "*.html" | while read -r file; do
     html2text "$file" >> "$FINAL_INTERMEDIATE_FILE"
 done
 
-# Split the final output into multiple files using the root domain in the file name
-split -b "$FILE_SIZE" -d -a 4 "$FINAL_INTERMEDIATE_FILE" "${OUTPUT_DIR}/${ROOT_DOMAIN}_"
+# Define a suffix for the split command that includes the .txt extension
+SPLIT_SUFFIX=".txt"
+
+split -b "$FILE_SIZE" -d -a 4 --additional-suffix=$SPLIT_SUFFIX "$FINAL_INTERMEDIATE_FILE" "${OUTPUT_DIR}/${ROOT_DOMAIN}_"
 
 echo "Content has been split and saved into $OUTPUT_DIR"
 rm -rf "$TMP_DIR" "$FINAL_INTERMEDIATE_FILE"
