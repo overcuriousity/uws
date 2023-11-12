@@ -36,7 +36,7 @@ mkdir -p "$TMP_DIR"
 
 # Download the website with specified depth, excluding images
 echo "Starting download..."
-wget --recursive --level="$DEPTH" --html-extension --convert-links --no-parent --reject=jpg,jpeg,png,gif,svg --continue --directory-prefix="$TMP_DIR" "$URL"
+wget --recursive --level="$DEPTH" --html-extension --convert-links --no-parent --reject=jpg,jpeg,png,gif --continue --directory-prefix="$TMP_DIR" "$URL"
 WGET_EXIT_STATUS=$?
 
 if [ $WGET_EXIT_STATUS -ne 0 ]; then
@@ -50,7 +50,8 @@ FINAL_INTERMEDIATE_FILE="/dev/shm/final_intermediate.txt"
 # Concatenate all text into one intermediate file
 find "$TMP_DIR" -type f -name "*.html" | while read -r file; do
     echo "Processing file: $file"
-    html2text "$file" >> "$FINAL_INTERMEDIATE_FILE"
+    # Convert HTML to text, filter out base64 encoded lines and remove empty lines
+    html2text "$file" | awk '!/^[A-Za-z0-9+\/]{60,}/' | sed '/^\s*$/d' >> "$FINAL_INTERMEDIATE_FILE"
 done
 
 # Define a suffix for the split command that includes the .txt extension
