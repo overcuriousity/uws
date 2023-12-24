@@ -6,8 +6,8 @@ command_exists() {
 }
 
 # Check for required commands
-if ! command_exists wget || ! command_exists cat; then
-    echo "Error: This script requires 'wget' and 'cat'. Please install them to continue."
+if ! command_exists wget || ! command_exists cat || ! command_exists html2text; then
+    echo "Error: This script requires 'wget', 'cat', and 'html2text'. Please install them to continue."
     exit 1
 fi
 
